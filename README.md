@@ -26,6 +26,7 @@ Summary:
 Steps
 
 <--- we are here
+
 0) do courses in todo list
 1) create web client
 2) create serverless communication between to dropboc and handle synchronization
