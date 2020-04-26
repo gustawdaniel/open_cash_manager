@@ -1,12 +1,12 @@
 <template>
-  <li>
-    {{ account.name }}
+  <tr>
+    <td>{{ account.name }}</td> <td>{{account.currency}}</td>
 
-    <div class="uk-inline uk-float-right">
+  <td class="uk-inline uk-float-right">
         <a uk-icon="pencil" class="uk-margin-small-right" style="color: #3a74e5" @click="handleEdit"></a>
         <a uk-icon="trash" style="color: #a73043" @click="handleDelete"></a>
-    </div>
-  </li>
+    </td>
+  </tr>
 </template>
 
 <script>

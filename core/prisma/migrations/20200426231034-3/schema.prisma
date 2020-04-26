@@ -4,7 +4,7 @@ generator client {
 
 datasource db {
   provider = "sqlite"
-  url      = "file:./dev.db"
+  url = "***"
 }
 
 // model User {
@@ -26,7 +26,7 @@ datasource db {
 model Account {
   id Int @default(autoincrement()) @id
   name String
-  currency Currency
+  currency Currency?
 }
 
 enum Currency {

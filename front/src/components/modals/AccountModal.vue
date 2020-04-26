@@ -10,6 +10,7 @@
           <input v-model="name" class="uk-input" type="text" placeholder="Name" autofocus @keydown.enter="save">
         </div>
 
+        <CurrencySelector v-model="currency"/>
       </fieldset>
 
       <p class="uk-text-right">
@@ -27,9 +28,11 @@
   import UPDATE_ACCOUNT from '../../graphql/UpdateAccount.gql';
   import ACCOUNTS from '../../graphql/Accounts.gql';
   import { MODAL_CLOSE, ModalBus } from '../../helpers/modalBus';
+  import CurrencySelector from '../CurrencySelector';
 
   export default {
     name: "AccountModal",
+    components: { CurrencySelector },
     props: {
       account: {
         type: Object,
@@ -39,13 +42,15 @@
     data() {
       return {
         id: null,
-        name: ""
+        name: "",
+        currency: null
       }
     },
     created() {
       if(this.account) {
         this.id =this.account.id;
         this.name =this.account.name;
+        this.currency =this.account.currency;
       }
     },
     mounted() {
@@ -67,7 +72,8 @@
                 id: this.account.id
               },
               data: {
-                name: this.name
+                name: this.name,
+                currency: this.currency
               },
             },
             update: (store, { data: { updateOneAccount } }) => {
@@ -88,7 +94,8 @@
             mutation: OPEN_ACCOUNT,
             variables: {
               data: {
-                name: this.name
+                name: this.name,
+                currency: this.currency
               },
             },
             update: (store, { data: { createOneAccount } }) => {

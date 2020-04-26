@@ -5,10 +5,11 @@
       <div class="uk-card uk-card-default uk-card-body">
         <h3 class="uk-card-title">Accounts</h3>
 
-        <ul class="uk-list uk-list-divider">
-          <SingleAccountListElement :key="account.id" v-for="account in accounts" :account="account"/>
-        </ul>
-
+        <table class="uk-table uk-table-divider">
+          <tbody>
+            <SingleAccountListElement :key="account.id" v-for="account in accounts" :account="account"/>
+          </tbody>
+        </table>
       </div>
 
       <OpenAccountButton/>
