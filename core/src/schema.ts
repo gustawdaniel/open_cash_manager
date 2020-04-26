@@ -1,12 +1,19 @@
 import {nexusPrismaPlugin} from "nexus-prisma";
-import {intArg, makeSchema, objectType, stringArg} from "@nexus/schema";
+import {makeSchema, objectType, enumType} from "@nexus/schema";
 
 const Account = objectType({
     name: 'Account',
     definition(t): void {
         t.model.id()
         t.model.name()
+        t.model.currency()
     }
+})
+
+const Currency = enumType({
+    name: 'Currency',
+    members: ["USD", "PLN", "GBP", "EUR", "BTC", "GOLD"],
+    description: "Possible Currencies"
 })
 
 const Query = objectType({
@@ -14,6 +21,14 @@ const Query = objectType({
     definition(t): void {
         t.crud.account()
         t.crud.accounts()
+
+        t.list.field('currencies', {
+            type: 'Currency',
+            // @ts-ignore
+            resolve: (_, args, ctx) => {
+                return Currency.value.members
+            },
+        })
     }
 })
 
@@ -30,7 +45,7 @@ const Mutation = objectType({
 })
 
 export const schema = makeSchema({
-    types: [Query, Mutation, Account],
+    types: [Query, Mutation, Account, Currency],
     outputs: {
         schema: __dirname + '/../schema.graphql',
         typegen: __dirname + '/generated/nexus.ts'

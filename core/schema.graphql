@@ -3,26 +3,31 @@
 
 
 type Account {
+  currency: Currency!
   id: Int!
   name: String!
 }
 
 input AccountCreateInput {
+  currency: Currency!
   name: String!
 }
 
 input AccountUpdateInput {
+  currency: Currency
   id: Int
   name: String
 }
 
 input AccountUpdateManyMutationInput {
+  currency: Currency
   id: Int
   name: String
 }
 
 input AccountWhereInput {
   AND: [AccountWhereInput!]
+  currency: Currency
   id: IntFilter
   name: StringFilter
   NOT: [AccountWhereInput!]
@@ -35,6 +40,16 @@ input AccountWhereUniqueInput {
 
 type BatchPayload {
   count: Int!
+}
+
+"""Possible Currencies"""
+enum Currency {
+  BTC
+  EUR
+  GBP
+  GOLD
+  PLN
+  USD
 }
 
 input IntFilter {
@@ -60,6 +75,7 @@ type Mutation {
 type Query {
   account(where: AccountWhereUniqueInput!): Account
   accounts(after: AccountWhereUniqueInput, before: AccountWhereUniqueInput, first: Int, last: Int, skip: Int): [Account!]!
+  currencies: [Currency!]!
 }
 
 input StringFilter {
