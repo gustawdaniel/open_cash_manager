@@ -1,0 +1,7 @@
+#import "./TransactionFragment.gql"
+
+mutation deleteOneTransaction($where: TransactionWhereUniqueInput!) {
+    deleteOneTransaction(where: $where) {
+        ...transaction
+    }
+}

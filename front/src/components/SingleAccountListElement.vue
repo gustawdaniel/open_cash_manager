@@ -1,19 +1,22 @@
 <template>
   <tr>
-    <td>{{ account.name }}</td> <td>{{account.currency}}</td>
+    <td>
+      <router-link :to="{name: 'Transactions', params: {id: account.id}}">{{ account.name }}</router-link>
+    </td>
 
-  <td class="uk-inline uk-float-right">
-        <a uk-icon="pencil" class="uk-margin-small-right" style="color: #3a74e5" @click="handleEdit"></a>
-        <a uk-icon="trash" style="color: #a73043" @click="handleDelete"></a>
+    <td>{{account.currency}}</td>
+
+    <td class="uk-inline uk-float-right">
+      <a uk-icon="pencil" class="uk-margin-small-right" style="color: #3a74e5" @click="handleEdit"></a>
+      <a uk-icon="trash" style="color: #a73043" @click="handleDelete"></a>
     </td>
   </tr>
 </template>
 
 <script>
-  import CLOSE_ACCOUNT from '../graphql/DeleteAccount.gql';
-  import ACCOUNTS from '../graphql/Accounts.gql';
+  import CLOSE_ACCOUNT from '../graphql/account/DeleteAccount.gql';
+  import ACCOUNTS from '../graphql/account/Accounts.gql';
   import AccountModal from './modals/AccountModal';
-
 
   export default {
     name: "SingleAccountListElement",
@@ -24,33 +27,37 @@
     },
     methods: {
       handleEdit() {
-        this.$store.dispatch('openDialog', { component: AccountModal, props: {account: this.account} })
+        this.$store.dispatch('openDialog', { component: AccountModal, props: { account: this.account } })
       },
       handleDelete() {
 
-          UIkit.modal.confirm(`Do you want to delete "${this.account.name}" account?`).then(() => {
-            console.log('Confirmed.', this.account.id)
-            this.$apollo.mutate({
-              mutation: CLOSE_ACCOUNT,
-              variables: {
-                where: {
-                  id: this.account.id
-                }
-              },
-              update(store, { data: { deleteOneAccount } }) {
-                const data = store.readQuery({ query: ACCOUNTS })
-
-                data.accounts.splice(data.accounts.findIndex(e => e.id === deleteOneAccount.id), 1)
-                store.writeQuery({ query: ACCOUNTS, data })
-
-                UIkit.notification({ message: `Account "${deleteOneAccount.name}" deleted...`, status: 'success', pos: 'top-right' })
-
+        UIkit.modal.confirm(`Do you want to delete "${this.account.name}" account?`).then(() => {
+          console.log('Confirmed.', this.account.id)
+          this.$apollo.mutate({
+            mutation: CLOSE_ACCOUNT,
+            variables: {
+              where: {
+                id: this.account.id
               }
-            })
+            },
+            update(store, { data: { deleteOneAccount } }) {
+              const data = store.readQuery({ query: ACCOUNTS })
 
-          }, () => {
-            console.log('Rejected.')
-          });
+              data.accounts.splice(data.accounts.findIndex(e => e.id === deleteOneAccount.id), 1)
+              store.writeQuery({ query: ACCOUNTS, data })
+
+              UIkit.notification({
+                message: `Account "${deleteOneAccount.name}" deleted...`,
+                status: 'success',
+                pos: 'top-right'
+              })
+
+            }
+          })
+
+        }, () => {
+          console.log('Rejected.')
+        });
 
       },
     }

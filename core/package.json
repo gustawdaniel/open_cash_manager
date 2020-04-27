@@ -8,7 +8,8 @@
     "generate:prisma": "prisma generate",
     "generate:nexus": "ts-node --transpile-only src/schema",
     "postinstall": "npm -s run generate",
-    "dev": "ts-node-dev --no-notify --respawn --transpileOnly src/server"
+    "dev": "ts-node-dev --no-notify --respawn --transpileOnly src/server",
+    "studio": "npx prisma studio --experimental"
   },
   "dependencies": {
     "@nexus/schema": "0.13.1",

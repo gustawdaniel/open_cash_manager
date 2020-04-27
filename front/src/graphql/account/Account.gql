@@ -1,0 +1,7 @@
+#import "./AccountFragment.gql"
+
+query account($where: AccountWhereUniqueInput!){
+    account(where: $where) {
+        ...account
+    }
+}
