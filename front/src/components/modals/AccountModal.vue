@@ -24,15 +24,16 @@
 </template>
 
 <script>
-  import OPEN_ACCOUNT from '../../graphql/OpenAccount.gql';
-  import UPDATE_ACCOUNT from '../../graphql/UpdateAccount.gql';
-  import ACCOUNTS from '../../graphql/Accounts.gql';
-  import { MODAL_CLOSE, ModalBus } from '../../helpers/modalBus';
+  import OPEN_ACCOUNT from '../../graphql/account/OpenAccount.gql';
+  import UPDATE_ACCOUNT from '../../graphql/account/UpdateAccount.gql';
+  import ACCOUNTS from '../../graphql/account/Accounts.gql';
   import CurrencySelector from '../CurrencySelector';
+  import { modalMixin } from './modalMixin';
 
   export default {
     name: "AccountModal",
     components: { CurrencySelector },
+    mixins: [modalMixin],
     props: {
       account: {
         type: Object,
@@ -53,12 +54,7 @@
         this.currency =this.account.currency;
       }
     },
-    mounted() {
-      UIkit.modal(this.$refs.modal).show();
-      this.$refs.modal.addEventListener('hidden', () => {
-        ModalBus.$emit(MODAL_CLOSE);
-      });
-    },
+
     methods: {
       save() {
         console.log(this.name, this.account)
@@ -110,7 +106,6 @@
           })
 
         }
-
 
       },
     }

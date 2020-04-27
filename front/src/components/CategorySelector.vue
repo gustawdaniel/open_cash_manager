@@ -1,16 +1,16 @@
 <template>
   <div class="uk-margin">
     <select class="uk-select" ref="select" @change="update">
-      <option v-for="currency in currencies" :key="currency">{{currency}}</option>
+      <option v-for="category in categories" :key="category.id" :value="category.id">{{category.name}}</option>
     </select>
   </div>
 </template>
 
 <script>
-  import CURRENCIES from '../graphql/currency/Currencies.gql';
+  import CATEGORIES from '../graphql/category/Categories.gql';
 
   export default {
-    name: "CurrencySelector",
+    name: "CategorySelector",
     props: ['value'],
     methods: {
       update() {
@@ -18,8 +18,8 @@
       }
     },
     apollo: {
-      currencies: {
-        query: CURRENCIES,
+      categories: {
+        query: CATEGORIES,
       }
     },
     watch: {
@@ -33,4 +33,3 @@
 <style scoped>
 
 </style>
-
