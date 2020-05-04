@@ -1,0 +1,249 @@
+!Account
+NAlior PLN
+TBank
+^
+NInwestycje
+TCash
+^
+NMillennium
+TBank
+^
+!Account
+NAlior PLN
+TBank
+^
+!Type:Bank
+D04/30'16
+PStrona Marcina
+U750.00
+T750.00
+LPrzychód:Faktury
+^
+D05/04'16
+PBiuro rachunkowe
+U-668.28
+T-668.28
+LFirma:Prawne
+^
+D05/10'16
+PSmart Select od Mariusza
+U800.00
+T800.00
+LPrzychód:Faktury
+^
+D05/31'16
+PAutoryzacja sms
+U-0.20
+T-0.20
+LUsługi:Finansowe
+^
+D06/09'16
+PKsięgowość
+U-332.46
+T-332.46
+LUsługi:Prawne
+^
+D06/30'16
+PAutoryzacja sms
+U-0.20
+T-0.20
+LUsługi:Finansowe
+^
+D07/07'16
+PKsięgowość
+U-311.44
+T-311.44
+LFirma:Prawne
+^
+D07/30'16
+PAutoryzacja sms
+U-0.20
+T-0.20
+LUsługi:Finansowe
+^
+D08/15'16
+PNa konto firmowe
+U1000.00
+T1000.00
+L[Millennium]
+^
+D08/15'16
+PKsięgowość
+U-296.46
+T-296.46
+LFirma:Prawne
+^
+D08/27'16
+POd Artura
+U500.00
+T500.00
+L[Inwestycje]
+^
+D08/27'16
+PSmart Select
+U500.00
+T500.00
+LPrzychód:Faktury
+^
+D08/31'16
+PProwizja
+U-0.20
+T-0.20
+LUsługi:Finansowe
+^
+D09/17'16
+PBiuro rachunkowe
+U-305.13
+T-305.13
+LFirma:Prawne
+^
+D09/19'16
+PWysyłki
+U625.00
+T625.00
+LPrzychód:Faktury
+^
+D10/10'16
+PBiuro rachunkowe
+U-292.63
+T-292.63
+LUsługi:Prawne
+^
+D10/31'16
+PAutoryzacja sms
+U-0.20
+T-0.20
+LUsługi:Finansowe
+^
+D11/23'16
+PKsięgowość
+U-311.64
+T-311.64
+LFirma:Prawne
+^
+D11/23'16
+PWysyłki
+U400.00
+T400.00
+LPrzychód:Faktury
+^
+D11/30'16
+PAutoryzacja sms
+U-0.20
+T-0.20
+LUsługi:Finansowe
+^
+D01/13'17
+PBiuro rachunkowe
+U-602.52
+T-602.52
+LUsługi:Prawne
+^
+D01/31'17
+POpłata bankowa
+U-0.20
+T-0.20
+LFirma:Prawne
+^
+D02/05'17
+PBiuro rachunkowe
+U-299.17
+T-299.17
+LFirma:Prawne
+^
+D02/07'17
+PWysyłki
+U2520.00
+T2520.00
+LPrzychód:Faktury
+^
+D02/14'17
+POpłaty bankowe
+U-4.00
+T-4.00
+LUsługi:Finansowe
+^
+D02/14'17
+PAdres angielski
+U-620.44
+T-620.44
+LFirma:Prawne
+^
+D02/14'17
+PRegulamin płatności
+U-300.00
+T-300.00
+LFirma:Prawne
+^
+D02/17'17
+PBiuro rachunkowe
+U-303.15
+T-303.15
+LFirma:Prawne
+^
+D02/28'17
+PAutoryzacja sms
+U-0.80
+T-0.80
+LUsługi:Finansowe
+^
+D03/01'17
+PKurs Coders Lab
+U2450.00
+T2450.00
+LPrzychód:Praca
+^
+D03/09'17
+PHotel
+U-477.00
+T-477.00
+LRozrywka:Hotel
+^
+D03/09'17
+POpłata bankowa
+U-2.00
+T-2.00
+LUsługi:Finansowe
+^
+D03/17'17
+PAffiliate
+U2000.00
+T2000.00
+LPrzychód:Faktury
+^
+D03/17'17
+PPrzelew
+U-0.20
+T-0.20
+LUsługi:Finansowe
+^
+D04/01'17
+PTransfer
+U-6400.00
+T-6400.00
+L[Millennium]
+^
+D04/01'17
+POpłata za transakcję
+U-2.00
+T-2.00
+LUsługi:Finansowe
+^
+D04/11'17
+PKurs Coders Lab
+U2450.00
+T2450.00
+LPrzychód:Praca
+^
+D04/11'17
+PZa hotel
+U636.00
+T636.00
+LPrzychód:Zwroty kosztów
+^
+D04/11'17
+PRejestracja NIN
+U-741.36
+T-741.36
+LUsługi:Prawne
+^
