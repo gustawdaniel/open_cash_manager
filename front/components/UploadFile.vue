@@ -1,5 +1,4 @@
 <template>
-  <div class="flex w-full h-screen items-center justify-center bg-gray-200">
     <label
       class="w-64 flex flex-col items-center px-4 py-6 bg-white text-blue rounded-lg shadow-lg tracking-wide uppercase border border-blue cursor-pointer
       hover:bg-blue-500 hover:text-white">
@@ -10,20 +9,48 @@
       <span class="mt-2 text-base leading-normal">Select a file</span>
       <input type='file' class="hidden" @change="upload"/>
     </label>
-  </div>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+// import {parse} from 'qif2json/lib/parse';
+import {deserializeQif, serializeQif, QifData} from 'qif-ts';
+import Vue from "vue";
+
+function download(filename: string, text: string) {
+  const element = document.createElement('a');
+  element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+  element.setAttribute('download', filename);
+
+  element.style.display = 'none';
+  document.body.appendChild(element);
+
+  element.click();
+
+  document.body.removeChild(element);
+}
+
+export default Vue.extend({
   name: "UploadFile",
   methods: {
-    async upload(e) {
+    async upload(e: any) {
       const text = await e.target.files[0].text();
       console.log(text.length);
       console.log(text);
+
+      const qifData: QifData = deserializeQif(text);
+      console.log(qifData);
+
+      const out: string = serializeQif(qifData);
+
+      this.$store.commit('init', qifData);
+      // download("out.qif",out);
+
+
+      // const json = parse(text)
+      // console.log(json);
     }
   }
-}
+});
 </script>
 
 <style scoped>
