@@ -18,3 +18,5 @@ $ npm run generate
 ```
 
 For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
+
+    "qif2json": "git+ssh://git@github.com/gustawdaniel/qif2json.git"
