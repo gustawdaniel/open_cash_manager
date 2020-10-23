@@ -1,19 +1,22 @@
 # front
 
-## Project setup
-```
-npm install
+## Build Setup
+
+```bash
+# install dependencies
+$ npm install
+
+# serve with hot reload at localhost:3000
+$ npm run dev
+
+# build for production and launch server
+$ npm run build
+$ npm run start
+
+# generate static project
+$ npm run generate
 ```
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
 
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+    "qif2json": "git+ssh://git@github.com/gustawdaniel/qif2json.git"
