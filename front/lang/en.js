@@ -69,5 +69,14 @@ export default {
       c: 'Outcome',
       t: 'Transfer'
     }
+  },
+  category: {
+    no: 'No category',
+    add: 'New category'
+  },
+  database: {
+    import: "Import...",
+    export: "Export...",
+    truncate: "Truncate Data.."
   }
 }

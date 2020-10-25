@@ -69,5 +69,14 @@ export default {
       c: 'Wydatek',
       t: 'Transfer'
     }
+  },
+  category: {
+    no: '[Brak kategorii]',
+    add: '[Dodaj nową...]'
+  },
+  database: {
+    import: "Importuj...",
+    export: "Exportuj...",
+    truncate: "Wykasuj dane.."
   }
 }

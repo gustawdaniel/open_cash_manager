@@ -56,40 +56,70 @@ export default {
           icon: {
             paths: [{d: 'M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z'}]
           },
-          handler: (event) => {
+          handler: this.openThreeDotsMenu
+        },
+      ].map(e => {
+        return {
+          handler: () => {
+          },
+          ...e
+        }
+      })
+    }
+  },
+  methods: {
+    openThreeDotsMenu(event) {
+      const ctxMenuData = [
+        {
+          title: "account.add",
+          handler: (e) => {
+            this.$router.push({path: '/account/add'})
+          }
+        },
+        {
+          title: "common.database",
+          handler: async e => {
+
+            await this.$nextTick();
+
             const ctxMenuData = [
               {
-                title: "account.add",
+                title: "database.import",
                 handler: (e) => {
-                  this.$router.push({path: '/account/add'})
+                  console.log("import", e);
                 }
               },
               {
-                title: "common.database",
+                title: "database.export",
                 handler: (e) => {
-                  console.log(e)
+                  console.log("export", e)
+                  this.$store.dispatch('database/export');
                 }
               },
               {
-                title: "common.settings",
+                title: "database.truncate",
                 handler: (e) => {
-                  console.log(e)
+                  console.log("truncate", e)
                 }
                 // handler: this.toggleShowHidden.bind(this, element)
               }
             ];
 
             this.$root.$emit("contextmenu", {event, ctxMenuData});
+
           }
         },
-      ].map(e => {
-        return {
-          handler: () => {
-          }, ...e
+        {
+          title: "common.settings",
+          handler: (e) => {
+            console.log(e)
+          }
         }
-      })
+      ];
+
+      this.$root.$emit("contextmenu", {event, ctxMenuData});
     }
-  }
+  },
 }
 </script>
 

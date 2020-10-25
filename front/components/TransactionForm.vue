@@ -57,8 +57,8 @@
             :allow-empty="false"
             :searchable="false"
             :clear-on-select="false"
-            :custom-label="opt => types.find(t => t.code === opt).name"
-            :options="types.map(t => t.code)">
+            :custom-label="opt => types[opt]"
+            :options="Object.keys(types)">
           </multiselect>
 
         </div>
@@ -78,16 +78,8 @@
           </multiselect>
         </div>
         <div v-else>
-          <p>{{ $t('transaction.category') }}</p>
 
-          <multiselect
-            disabled
-            v-model="transaction.category"
-            :allow-empty="false"
-            :searchable="false"
-            :clear-on-select="false"
-            :options="categories">
-          </multiselect>
+          <CategorySelector v-model="transaction.category"/>
 
         </div>
       </div>
@@ -140,9 +132,9 @@
 
           <multiselect
             v-model="transaction.status"
-            :custom-label="opt => statuses.find(x => x.code === opt).name"
+            :custom-label="opt => statuses[opt]"
             :searchable="false"
-            :options="statuses.map(s => s.code)">
+            :options="Object.keys(statuses)">
           </multiselect>
 
         </div>
@@ -154,9 +146,9 @@
 
           <multiselect
             v-model="transaction.targetStatus"
-            :custom-label="opt => statuses.find(x => x.code === opt).name"
+            :custom-label="opt => statuses[opt]"
             :searchable="false"
-            :options="statuses.map(s => s.code)">
+            :options="Object.keys(statuses)">
           </multiselect>
         </div>
         <div v-else>
@@ -193,19 +185,19 @@
 
 <script>
 import Multiselect from "vue-multiselect";
-
+import CategorySelector from '~/components/CategorySelector'
 import {
   TRANSACTION_COST,
   TRANSACTION_TRANSFER,
   TRANSACTION_INCOME
-} from "../constants/transaction-types";
+} from "~/constants/transaction-types";
 
 import {
   TRANSACTION_AGREED,
   TRANSACTION_DISAGREED,
   TRANSACTION_NOT_AGREED,
   TRANSACTION_SETTLED
-} from "../constants/transaction-statuses";
+} from "~/constants/transaction-statuses";
 
 export default {
   name: "AddTransaction",
@@ -224,7 +216,7 @@ export default {
       required: false
     }
   },
-  components: {Multiselect},
+  components: {Multiselect, CategorySelector},
   data() {
     let transaction;
 
@@ -269,7 +261,7 @@ export default {
         date: new Date().toISOString().substr(0, 10),
         // type: {code: TRANSACTION_TRANSFER, name: this.$t(`transaction.types.${TRANSACTION_TRANSFER}`)},
         // targetAccount: 'PLN bank'
-        type: {code: TRANSACTION_COST, name: this.$t(`transaction.types.${TRANSACTION_COST}`)}
+        type: TRANSACTION_COST
       };
     }
 
@@ -298,16 +290,17 @@ export default {
         this.account.currency !== this.targetAccount.currency;
     },
     types() {
-      return [TRANSACTION_INCOME, TRANSACTION_COST, TRANSACTION_TRANSFER].map(s => ({
-        code: s,
-        name: this.$t(`transaction.types.${s}`)
-      }))
+      return [TRANSACTION_INCOME, TRANSACTION_COST, TRANSACTION_TRANSFER].reduce((p,n) => ({
+        ...p,
+        [n]: this.$t(`transaction.types.${n}`)
+      }), {})
     },
     statuses() {
-      return [TRANSACTION_NOT_AGREED, TRANSACTION_SETTLED, TRANSACTION_AGREED, TRANSACTION_DISAGREED].map(s => ({
-        code: s,
-        name: this.$t(`transaction.statuses.${s}`)
-      }))
+      return [TRANSACTION_NOT_AGREED, TRANSACTION_SETTLED, TRANSACTION_AGREED, TRANSACTION_DISAGREED]
+        .reduce((p,n) => ({
+        ...p,
+        [n]: this.$t(`transaction.statuses.${n}`)
+      }), {})
     },
     projects() {
       return [];
@@ -318,6 +311,10 @@ export default {
   },
   methods: {
     async save() {
+      if(this.account.currency === this.targetAccount.currency) {
+        this.transaction.targetAmount = this.transaction.amount;
+      }
+
       if (this.baseTransaction && !this.copyMode) {
         await this.$store.dispatch('transaction/save', {
           where: {...this.baseTransaction},
