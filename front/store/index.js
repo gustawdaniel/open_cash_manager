@@ -3,10 +3,13 @@ import {
   TRANSACTION_TRANSFER,
   TRANSACTION_INCOME
 } from "~/constants/transaction-types";
+import {serializeQif} from "qif-ts";
+import {download} from "@/helpers/download";
 
 export const state = () => ({
   accounts: [],
   transactions: [],
+  categories: [],
   config: {
     showHidden: false
   }
@@ -69,12 +72,27 @@ export const mutations = {
     state.accounts.splice(index, 1)
   },
   removeTransaction(state, {where}) {
-    const index = state.transactions.findIndex(t => JSON.stringify(t) === JSON.stringify(where));
+    const index = state.transactions.findIndex(
+      t => JSON.stringify(Object.keys(where).reduce((o, k) => ({
+        ...o,
+        [k]: t[k]
+      }), {})) === JSON.stringify(where)
+    );
     state.transactions.splice(index, 1)
+  },
+  addCategory(state, {data}) {
+    state.categories.push(data);
   }
 }
 
 export const actions = {
+  'database/export'({state}){
+    const out = serializeQif({
+      type: '!Account',
+      ...state
+    });
+    download("out.qif",out);
+  },
   'account/save'({state, commit}, {where, data}) {
     if (where) {
       if (where.name !== data.name) {
@@ -92,9 +110,31 @@ export const actions = {
     commit('removeTransactions', {where: {account: where.name}});
     commit('removeAccount', {where})
   },
+  'category/add'({commit}, {data}) {
+    commit('addCategory', {data});
+  },
+  'transaction/remove'({commit}, {where}) {
+    if (where.type === TRANSACTION_TRANSFER) {
+      commit('removeTransaction', {
+        where: {
+          date: where.date,
+          payee: where.payee,
+          account: where.category.match(/\[(.*)]/)[1],
+          category: `[${where.account}]`
+        }
+      });
+
+    }
+    commit('removeTransaction', {where});
+
+  },
   'transaction/save'({state, commit}, {where, data}) {
 
     if (data.type === TRANSACTION_TRANSFER) {
+      if (!data.targetAmount) {
+        data.targetAmount = 0;
+      }
+
       commit('transaction/add', {
         data: {
           payee: data.payee,
@@ -140,5 +180,8 @@ export const getters = {
     accounts.sort((a, b) => a.order - b.order);
 
     return accounts;
+  },
+  categories(state) {
+    return state.categories.filter(c => c.name === c.name.replace(/:.*/, ''))
   }
 }

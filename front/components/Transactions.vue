@@ -75,7 +75,7 @@ export default {
                 title: this.$t('transaction.remove'),
                 text: this.$t('transaction.really-remove'),
                 handler: () => {
-                  this.$store.commit('removeTransaction', {
+                  this.$store.dispatch('transaction/remove', {
                     where: {...transaction}
                   })
                 }

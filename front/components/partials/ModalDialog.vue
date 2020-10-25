@@ -2,13 +2,28 @@
   <div class="modal-layer" @click="resetCtx" :class="{hidden: !display}">
     <div class="modal-dialog">
       <div class="bg-white border shadow-lg" style="width: 120%;">
-        <div class="p-3 text-center">
-          <h1 class="text-xl">{{ config.title }}</h1>
-          <p>{{ config.text }}</p>
+        <div v-if="config.type === 'new-category'">
+          <CategoryForm :handler="config.handler"/>
         </div>
-        <div class="flex w-full">
-          <button class="w-1/2 border-r border-t p-2" @click="resetCtx">{{ $t('common.cancel') }}</button>
-          <button class="w-1/2 border-t p-2" @click="config.handler">{{ $t('common.confirm') }}</button>
+        <div v-else-if="config.type === 'list'">
+          <div class="p-3 text-center">
+            <h1 class="text-xl mb-1">{{ config.title }}</h1>
+            <ul class="border-t">
+              <li :key="index" v-for="(element, index) in config.elements" class="cursor-pointer border-b border-r border-l p-1" @click="element.handler">
+                {{element.name}}
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div v-else>
+          <div class="p-3 text-center">
+            <h1 class="text-xl">{{ config.title }}</h1>
+            <p>{{ config.text }}</p>
+          </div>
+          <div class="flex w-full">
+            <button class="w-1/2 border-r border-t p-2" @click="resetCtx">{{ $t('common.cancel') }}</button>
+            <button class="w-1/2 border-t p-2" @click="config.handler">{{ $t('common.confirm') }}</button>
+          </div>
         </div>
       </div>
     </div>
@@ -16,8 +31,11 @@
 </template>
 
 <script>
+import CategoryForm from '~/components/CategoryForm'
+
 export default {
   name: "ModalDialog",
+  comments: {CategoryForm},
   data() {
     return {
       display: false,
@@ -69,6 +87,6 @@ export default {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0,0,0,0.4);
+  background: rgba(0, 0, 0, 0.4);
 }
 </style>
