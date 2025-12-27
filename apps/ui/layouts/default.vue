@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { Disclosure } from '@headlessui/vue';
 import { useRoute } from '#app';
+import { SpeedInsights } from '@vercel/speed-insights/vue';
 import ExpandableListNavigationButtons from '~/components/expandableList/ExpandableListNavigationButtons.vue';
 
 const route = useRoute();
@@ -30,6 +31,7 @@ useHead({
 
 <template>
   <div>
+    <SpeedInsights />
     <Disclosure as="nav" class="bg-white shadow">
       <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div class="flex h-16 justify-between">
